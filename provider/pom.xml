@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.charlesvhe.nativeimage</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>provider</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.charlesvhe.nativeimage</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-sql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-h2</artifactId>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-maven-plugin</artifactId>
+                <version>${querydsl.version}</version>
+                <configuration>
+                    <jdbcDriver>org.h2.Driver</jdbcDriver>
+                    <jdbcUrl>jdbc:h2:tcp://localhost/mem:testdb</jdbcUrl>
+                    <jdbcUser>sa</jdbcUser>
+                    <jdbcPassword>123456</jdbcPassword>
+                    <schemaPattern>PUBLIC</schemaPattern>
+                    <tableNamePattern>CONFIG_META,CONFIG_ITEM</tableNamePattern>
+                    <packageName>com.github.charlesvhe.nativeimage.provider</packageName>
+                    <namingStrategyClass>com.github.charlesvhe.nativeimage.QueryDslR2dbcNamingStrategy</namingStrategyClass>
+                    <customTypes>
+                        <customType>com.querydsl.sql.types.JSR310LocalDateTimeType</customType>
+                    </customTypes>
+                    <exportBeans>true</exportBeans>
+                    <targetFolder>target/generated-sources/java</targetFolder>
+                    <sourceFolder>src/main/java</sourceFolder>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>${h2.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.charlesvhe.nativeimage</groupId>
+                        <artifactId>core</artifactId>
+                        <version>${parent.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,53 @@
+# 分页
+GET http://localhost:8080/ConfigItem?offset=0&limit=3 HTTP/1.1
+
+# QBE模糊查询
+GET http://localhost:8080/ConfigItem?filter.varchar1=VIP HTTP/1.1
+
+# 排序 只返回指定字段
+GET http://localhost:8080/ConfigItem?sort=-varchar1&fields=metaCode,varchar1,varchar2 HTTP/1.1
+
+
+
+GET http://localhost:8080/ConfigMeta?offset=0&limit=3 HTTP/1.1
+
+GET http://localhost:8080/ConfigMeta?filter.description=类型 HTTP/1.1
+
+GET http://localhost:8080/ConfigMeta?sort=property&fields=code,property,columnName,sort HTTP/1.1
+
+
+GET http://localhost:8080/ConfigMeta/test HTTP/1.1
+
+
+#ConfigMeta CRUD
+POST  http://localhost:8080/ConfigMeta HTTP/1.1
+Content-Type: application/json
+
+{
+    "appId": "appIdTest",
+    "code": "codeTest",
+    "columnName": "columnNameTest",
+    "property": "propertyTest",
+    "description": "测试"
+}
+
+
+PUT  http://localhost:8080/ConfigMeta/5 HTTP/1.1
+Content-Type: application/json
+
+{
+    "appId": "appIdTestPut",
+    "code": "codeTestPut",
+    "columnName": "columnNameTestPut",
+    "property": "propertyTestPut",
+    "description": "测试修改"
+}
+
+
+GET http://localhost:8080/ConfigMeta/5 HTTP/1.1
+
+GET http://localhost:8080/ConfigMeta HTTP/1.1
+
+
+DELETE http://localhost:8080/ConfigMeta/5 HTTP/1.1
+

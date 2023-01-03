@@ -1,0 +1,17 @@
+server.port: 8080
+spring:
+  application.name: provider
+  cloud.nacos.discovery.server-addr: 127.0.0.1:8848
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb
+    username: sa
+    password: 123456
+  sql.init: # for test
+    platform: h2
+    mode: always
+  jackson.default-property-inclusion: non_null
+
+management.endpoints.web.exposure.include: "*"
+
+#logging.level.root: DEBUG
+logging.level.io.r2dbc.h2.client.SessionClient: DEBUG
