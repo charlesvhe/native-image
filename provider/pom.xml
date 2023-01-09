@@ -86,7 +86,7 @@
                     <dependency>
                         <groupId>com.github.charlesvhe.nativeimage</groupId>
                         <artifactId>core</artifactId>
-                        <version>${parent.version}</version>
+                        <version>${project.parent.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
